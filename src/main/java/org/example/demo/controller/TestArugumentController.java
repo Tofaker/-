@@ -6,7 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,6 +95,53 @@ public class TestArugumentController {
         map.put("ok",true);
         return map;
     }
+
+    @PostMapping("/json")
+    public Object json(@RequestBody User user){
+        log.debug("用户信息为：{}",user);
+        Map<String,Object> map = new HashMap<>();
+        map.put("ok",true);
+        return map;
+    }
+
+    @RequestMapping("/file")
+    public Object file(@RequestPart MultipartFile file) throws IOException {
+        log.debug("头像信息，名称={},内容={}", file.getOriginalFilename(), new String(file.getBytes()));
+        Map<String, Object> map = new HashMap<>();
+        map.put("ok", true);
+        return map;
+    }
+
+    @PostMapping("/part")
+    public Object part(User user, @RequestPart MultipartFile file) throws
+            IOException {
+        Map<String, String> map = new HashMap<>();
+        map.put("用户名", user.getUsername());
+        map.put("密码", user.getPassword());
+        map.put("文件名", file.getName()+", "+file.getOriginalFilename());
+        map.put("文件类型", file.getContentType());
+        map.put("文件大小", file.getSize()/1024+"KB");
+        map.put("文件内容（二进制转字符串）", new String(file.getBytes()));
+        return map;
+    }
+
+    @GetMapping("/servlet")
+    public void servlet(HttpServletRequest req, HttpServletResponse resp) throws
+            IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        PrintWriter pw = resp.getWriter();
+        pw.println("接收到的请求为：用户名="+username+"，密码："+password);
+        pw.flush();
+        pw.close();
+    }
+
+
+
+
 }
 
 

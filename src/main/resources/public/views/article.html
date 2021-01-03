@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章</title>
+
+    <script src="../js/jquery@3.3.1/jquery.js" type="text/javascript"></script>
+    <script>
+        function getQueryVariable() {
+            let json = {};
+            //window.location.search为queryString：？及之后的参数
+            if (window.location.search.indexOf("?") != -1){// !=-1  代表有问号
+                let query = window.location.search.substring(1);
+                console.log(window.location.search)
+                let vars = query.split("&")
+                for (let i = 0; i < vars.length; i++){
+                    let pair = vars[i].split("=")
+                    json[pair[0]] = pair[1];
+                }
+            }
+            return json;//函数返回值
+        }
+        $(function () {
+            //console.log(JSON.stringify(getQueryVariable()))
+            // 控制台打印getQueryVariable函数返回的json格式的数据，经stringify函数处理成字符串
+            let query = getQueryVariable();//当前url参数
+            let data = {};
+            if (query.type == 'modify'){
+                data.id = query.id;
+            }
+            $("#article_form").submit(function () {
+                //设置data的文章标题和内容
+                data.title = $("#title").val();
+                data.content = $("#content").val();
+                console.log(JSON.stringify(data))
+                $.ajax({
+                    url:query.type == "add"?"../data/articleAdd":"../data/aritcleModify",//三木运算符   设置url
+                    type:"post",
+                    dataType:"application/json",//传一个请求的数据类型
+                    data: data,
+                    contentType:"json",//响应的数据类型
+                    success:function (resp) {
+                        if (resp.success()){
+                            alert("操作成功")
+                        }else {
+                            alert("操作失败")
+                        }
+                    },
+                    error:function (req,textStatus,err) {
+                        alert(req.status)
+                    }
+
+                })
+                return false;//禁用表单默认提交
+            })
+
+        })
+    </script>
+</head>
+<body>
+<form id="article_form">
+    标题：<input type="text" name="title">
+    <br><br>
+    <textarea name="content" style="width: 500px;height: 300px"></textarea>
+    <br><br>
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>

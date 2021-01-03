@@ -19,8 +19,8 @@ public class TestRestController {
     @GetMapping("/1")
     public Object test1(){
         JSONResponse resp = new JSONResponse();
-        resp.setCode("LOG001");
-        resp.setMessage("用户不存在");
+        //resp.setCode("LOG001");
+        //resp.setMessage("用户不存在");
         resp.setData(new Date());
         return resp;
     }

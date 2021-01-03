@@ -75,8 +75,8 @@ public class TestController {
     @ResponseBody
     public Object test8(){
         JSONResponse resp = new JSONResponse();
-        resp.setCode("LOG001");
-        resp.setMessage("用户不存在");
+        //resp.setCode("LOG001");
+        //resp.setMessage("用户不存在");
         resp.setData(new Date());
         return resp;
     }
@@ -84,8 +84,8 @@ public class TestController {
     @ResponseBody
     public ResponseEntity test9(){
         JSONResponse resp = new JSONResponse();
-        resp.setCode("LOG000");
-        resp.setMessage("未授权的请求，不允许访问");
+        //resp.setCode("LOG000");
+        //resp.setMessage("未授权的请求，不允许访问");
         resp.setData(new Date());
         return ResponseEntity.status(401).body(resp);//手动返回状态码
     }
