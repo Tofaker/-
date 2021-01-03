@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class JSONResponse {
     private boolean success;
-    private String code;
-    private String message;
     private Object data;
+    private String username;
+    private String password;
 }
