@@ -21,7 +21,7 @@
         $(function () {
             $.ajax({
                 url:"/login/json",
-                contentType:"json",//响应的数据类型
+                dataType:"json",//请求的数据类型
                 success:function (resp) {
                     //resp已经由jquery经过反序列化处理 成为一个json对象(从字符串转为对象)
                     //alert(JSON.stringify(resp))

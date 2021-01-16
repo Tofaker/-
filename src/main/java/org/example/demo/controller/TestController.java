@@ -4,6 +4,7 @@ import org.example.demo.model.JSONResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
@@ -44,6 +45,17 @@ public class TestController {
         map.put(3, "王五");
         return map;
     }
+
+    @RequestMapping(value = "/4_1" ,method = RequestMethod.GET)//指定请求方法 ,value为指定的 服务路径
+    @ResponseBody
+    public Object test4_1(){
+        Map<Integer,String> map = new HashMap<>();
+        map.put(1, "张三");
+        map.put(2, "李四");
+        map.put(3, "王五");
+        return map;
+    }
+
     @RequestMapping("/5")
     @ResponseBody
     public Object test5(){
@@ -89,5 +101,11 @@ public class TestController {
         resp.setData(new Date());
         return ResponseEntity.status(401).body(resp);//手动返回状态码
     }
+
+    /*
+    * 1.success = true ，data有数据
+    * 2.success = true，data = null
+    * 3.success = false， 返回code错误码和message错误信息
+    */
 
 }

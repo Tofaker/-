@@ -36,9 +36,9 @@
                 $.ajax({
                     url:query.type == "add"?"../data/articleAdd":"../data/aritcleModify",//三木运算符   设置url
                     type:"post",
-                    dataType:"application/json",//传一个请求的数据类型
+                    contentType:"application/json",//传一个请求的数据类型
                     data: data,
-                    contentType:"json",//响应的数据类型
+                    dataType:"json",//响应的数据类型
                     success:function (resp) {
                         if (resp.success()){
                             alert("操作成功")
