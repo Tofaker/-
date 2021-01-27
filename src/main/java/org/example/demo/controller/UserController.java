@@ -1,7 +1,9 @@
 package org.example.demo.controller;
 
+import org.example.demo.exception.AppException;
 import org.example.demo.model.JSONResponse;
 import org.example.demo.model.User;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +35,14 @@ public class UserController {
             json.setMessage("用户或密码错误");
         }
         return json;
+    }
+
+    @PostMapping("/login2")
+    public Object login2(User user){
+        if ("abc".equals(user.getUsername())){
+            return user;
+        }else {
+            throw new AppException("USELOG001","用户名或密码错误");
+        }
     }
 }

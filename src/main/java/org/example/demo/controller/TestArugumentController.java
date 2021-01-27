@@ -1,5 +1,6 @@
 package org.example.demo.controller;
 
+import org.example.demo.exception.AppException;
 import org.example.demo.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,7 +139,17 @@ public class TestArugumentController {
         pw.flush();
         pw.close();
     }
-
+    @GetMapping("/ex")
+    public Object ex(Integer i ){
+        if (i == 1 ){//用户名密码不通过
+            throw new AppException("LOG001","用户名密码或错误");
+        }else {//模拟登陆成功，但自己写打吗有bug，出现运行时异常
+            int x = i/0;
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("ok",true);
+        return map;
+    }
 
 
 
